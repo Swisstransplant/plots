@@ -1,17 +1,69 @@
 ---
-title: "R Notebook"
+title: "Transplantation activity"
+author:
+- name: Simon Schwab
+  email: simon.schwab@swisstransplant.org
+date: 'Last updated: `r format(Sys.Date())`'
 output:
   html_document:
+    code_folding: hide
     df_print: paged
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+    css: "swt.css"
+subtitle: Interactive plots
 ---
 
 Test page for interactive plots.
 
 
-
+# Plot 1
 ```{r message=FALSE, warning=FALSE}
 library(plotly)
 p <- plot_ly(economics, x = ~date, y = ~unemploy / pop)
 p
+```
+
+# Plot 2
+
+```{r}
+x <- seq(-2 * pi, 2 * pi, length.out = 1000)
+df <- data.frame(x, y1 = sin(x), y2 = cos(x))
+
+fig <- plot_ly(df, x = ~x)
+fig <- fig %>% add_lines(y = ~y1, name = "A")
+fig <- fig %>% add_lines(y = ~y2, name = "B", visible = F)
+fig <- fig %>% layout(
+    title = "Drop down menus - Styling",
+    xaxis = list(domain = c(0.1, 1)),
+    yaxis = list(title = "y"),
+    updatemenus = list(
+      list(
+        y = 0.8,
+        buttons = list(
+
+          list(method = "restyle",
+               args = list("line.color", "blue"),
+               label = "Blue"),
+
+          list(method = "restyle",
+               args = list("line.color", "red"),
+               label = "Red"))),
+
+      list(
+        y = 0.7,
+        buttons = list(
+          list(method = "restyle",
+               args = list("visible", list(TRUE, FALSE)),
+               label = "Sin"),
+
+          list(method = "restyle",
+               args = list("visible", list(FALSE, TRUE)),
+               label = "Cos")))
+    )
+  )
+
+fig
 ```
 
