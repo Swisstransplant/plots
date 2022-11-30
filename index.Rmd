@@ -1,5 +1,5 @@
 ---
-title: "Transplantation activity"
+title: "Statistics on organ donation, transplantation and waiting list"
 author:
 - name: Simon Schwab
   email: simon.schwab@swisstransplant.org
@@ -12,58 +12,101 @@ output:
     toc_depth: 3
     toc_float: yes
     css: "swt.css"
-subtitle: Interactive plots
+subtitle: Swisstransplant
 ---
 
-Test page for interactive plots.
-
-
-# Plot 1
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo=F}
 library(plotly)
-p <- plot_ly(economics, x = ~date, y = ~unemploy / pop)
-p
+
+col = swt::swt_colors()
 ```
 
-# Plot 2
+# Introduction
 
-```{r}
-x <- seq(-2 * pi, 2 * pi, length.out = 1000)
-df <- data.frame(x, y1 = sin(x), y2 = cos(x))
+Describe here what this page shows. Describe data sources and how data is aggregated or any relevant detail about the data that needs reporting.
 
-fig <- plot_ly(df, x = ~x)
-fig <- fig %>% add_lines(y = ~y1, name = "A")
-fig <- fig %>% add_lines(y = ~y2, name = "B", visible = F)
-fig <- fig %>% layout(
-    title = "Drop down menus - Styling",
-    xaxis = list(domain = c(0.1, 1)),
-    yaxis = list(title = "y"),
-    updatemenus = list(
-      list(
-        y = 0.8,
-        buttons = list(
+# 1. Persons on the wating list
 
-          list(method = "restyle",
-               args = list("line.color", "blue"),
-               label = "Blue"),
+```{r fig.height=4, fig.width=6.7, echo=F}
+Year = 2017:2021
+Kidney = c(1124, 1090, 1057, 1094, 1046)
+Liver = c(198, 192, 209, 222, 233)
+Heart = c(88, 76, 89, 77, 75)
+Pancreas = c(75, 60, 57, 44, 45)
+Lung = c(44, 37, 45, 52, 70)
+SmallBowel = c(1, 1, 2, 2, 1)
 
-          list(method = "restyle",
-               args = list("line.color", "red"),
-               label = "Red"))),
+data = data.frame(Year, Kidney, Liver, Heart, Pancreas, Lung, SmallBowel)
 
-      list(
-        y = 0.7,
-        buttons = list(
-          list(method = "restyle",
-               args = list("visible", list(TRUE, FALSE)),
-               label = "Sin"),
+N = rowSums(data[,2:7])
 
-          list(method = "restyle",
-               args = list("visible", list(FALSE, TRUE)),
-               label = "Cos")))
-    )
+Kidney.prc = Kidney/N
+Liver.prc = Liver/N
+Heart.prc = Heart/N
+Pancreas.prc = Pancreas/N
+Lung.prc = Lung/N
+SmallBowel.prc = SmallBowel/N
+
+
+# figs 1-6: Absolute numbers
+fig = plot_ly(data, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney, name = 'Kidney', 
+              marker = list(color = col$darkyellow.kidney), insidetextanchor = 'middle',
+              hovertemplate = paste('Year %{x}', '<br>%{y}<br>')) %>%
+  
+  add_trace(y = ~Liver, text = Liver, name = 'Liver', visible = T,
+            marker = list(color = col$red.liver)) %>%
+  
+  add_trace(y = ~Heart, text = Heart, name = 'Heart', visible = T,
+            marker = list(color = col$pink.heart)) %>%
+  
+  add_trace(y = ~Pancreas, text = Pancreas, name = 'Pancreas', visible = T,
+            marker = list(color = col$green.pancreas)) %>%
+  
+  add_trace(y = ~Lung, text = Lung, name = 'Lung', visible = T,
+            marker = list(color = col$lightblue.lungs)) %>%
+  
+  add_trace(y = ~SmallBowel, text = SmallBowel, name = 'Small Bowel', visible = T,
+            marker = list(color = col$beige.intestine)) %>%
+  
+  # figs 7-12: Percent
+  add_trace(y = ~Kidney.prc, name = "Kidney", visible = F, text = sprintf("%.1f%%", Kidney.prc*100), 
+            marker = list(color = col$darkyellow.kidney)) %>%
+  add_trace(y = ~Liver.prc, name = "Liver", visible = F, text= sprintf("%.1f%%", Liver.prc*100), 
+            marker = list(color = col$red.liver)) %>%
+  add_trace(y = ~Heart.prc, name = "Heart", visible = F, text= sprintf("%.1f%%", Heart.prc*100), 
+            marker = list(color = col$pink.heart)) %>%
+  add_trace(y = ~Pancreas.prc, name = "Pancreas", visible = F, text= sprintf("%.1f%%", Pancreas.prc*100), 
+            marker = list(color = col$green.pancreas)) %>%
+  add_trace(y = ~Lung.prc, name = "Lung", visible = F, text= sprintf("%.1f%%", Lung.prc*100), 
+            marker = list(color = col$lightblue.lungs)) %>%
+  add_trace(y = ~SmallBowel.prc, name = "SmallBowel", visible = F, text= sprintf("%.1f%%", SmallBowel.prc*100), 
+            marker = list(color = col$beige.intestine)) %>%
+  
+  layout(yaxis = list(title = ""), barmode = "stack")
+
+
+fig = fig %>% layout(
+  title = "",
+  xaxis = list(domain = c(0.1, 1)),
+  uniformtext=list(minsize=9, mode='show'),
+  updatemenus = list(
+    
+    list(
+      y = 1,
+      buttons = list(
+        list(method = "restyle",
+             args = list("visible", list(T, T, T, T, T, T,
+                                         F, F, F, F, F, F)),
+             label = "Absolut"),
+        
+        list(method = "restyle",
+             args = list("visible", list(F, F, F, F, F, F,
+                                         T, T, T, T, T, T)),
+             label = "Prozent")))
   )
+)
 
 fig
 ```
+
 
