@@ -27,7 +27,7 @@ Describe here what this page shows. Describe data sources and how data is aggreg
 
 # 1. Persons on the wating list
 
-```{r fig.height=4, fig.width=6.7, echo=F}
+```{r fig.height=5, fig.width=5, echo=F}
 Year = 2017:2021
 Kidney = c(1124, 1090, 1057, 1094, 1046)
 Liver = c(198, 192, 209, 222, 233)
@@ -80,19 +80,20 @@ fig = plot_ly(data, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney, name 
   add_trace(y = ~Lung.prc, name = "Lung", visible = F, text= sprintf("%.1f%%", Lung.prc*100), 
             marker = list(color = col$lightblue.lungs)) %>%
   add_trace(y = ~SmallBowel.prc, name = "SmallBowel", visible = F, text= sprintf("%.1f%%", SmallBowel.prc*100), 
-            marker = list(color = col$beige.intestine)) %>%
-  
-  layout(yaxis = list(title = ""), barmode = "stack")
+            marker = list(color = col$beige.intestine))
 
 
 fig = fig %>% layout(
+  yaxis = list(title = ""), 
+  xaxis = list(title = ""), 
+  barmode = "stack", legend = list(orientation = 'h'),
   title = "",
   xaxis = list(domain = c(0.1, 1)),
   uniformtext=list(minsize=9, mode='show'),
   updatemenus = list(
     
     list(
-      y = 1,
+      y = 1.2, x = 0.1,
       buttons = list(
         list(method = "restyle",
              args = list("visible", list(T, T, T, T, T, T,
