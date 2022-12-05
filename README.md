@@ -1,3 +1,4 @@
-# Interactive plots with RMarkdown and plotly
+# Interactive plots with plotly and distill
 
-Stats, dataviz, and rock & roll.
+* https://plotly.com/r/
+* https://rstudio.github.io/distill/website.html
