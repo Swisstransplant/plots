@@ -1,8 +1,7 @@
 ---
-title: "Organ donation, transplantation and waiting list"
+title: "Organspende, Transplantationen und Warteliste"
 description: |
-  Swisstransplant yearly statistics with interactive plots.
-  
+  Jahresstatistik mit interaktiven Plots.
   
 site: distill::distill_website
 ---
@@ -22,11 +21,12 @@ library(plotly)
 col = swt::swt_colors()
 ```
 
-# Introduction
+# Einleitung
 
-Describe here what this page shows. Describe data sources and how data is aggregated or any relevant detail about the data that needs reporting.
+Ein paar Erklärungen, Was diese Seite zeigt. Beschreibung der Datenquellen und wie die Daten bearbeitet wurden. Vielleicht
+einige Hinweise, wie die Plots zu navigieren sind, z.B. Doppelklick ist ein "Reset" des Plots.
 
-# 1. Persons on the wating list
+# 1. Personen auf der Warteliste
 
 ```{r fig.height=5, fig.width=5, echo=F}
 Year = 2017:2021
@@ -41,18 +41,19 @@ data = data.frame(Year, Kidney, Liver, Heart, Pancreas, Lung, SmallBowel)
 
 N = rowSums(data[,2:7])
 
-Kidney.prc = Kidney/N
-Liver.prc = Liver/N
-Heart.prc = Heart/N
-Pancreas.prc = Pancreas/N
-Lung.prc = Lung/N
-SmallBowel.prc = SmallBowel/N
+Kidney.prc = Kidney/N*100
+Liver.prc = Liver/N*100
+Heart.prc = Heart/N*100
+Pancreas.prc = Pancreas/N*100
+Lung.prc = Lung/N*100
+SmallBowel.prc = SmallBowel/N*100
 
 
 # figs 1-6: Absolute numbers
 fig = plot_ly(data, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney, name = 'Kidney', 
               marker = list(color = col$darkyellow.kidney), insidetextanchor = 'middle',
-              hovertemplate = paste('Year %{x}', '<br>%{y}<br>')) %>%
+              hovertemplate = paste('Year %{x}', '<br>%{y}<br>')) %>% 
+  config(displayModeBar = FALSE) %>% 
   
   add_trace(y = ~Liver, text = Liver, name = 'Liver', visible = T,
             marker = list(color = col$red.liver)) %>%
@@ -70,22 +71,21 @@ fig = plot_ly(data, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney, name 
             marker = list(color = col$beige.intestine)) %>%
   
   # figs 7-12: Percent
-  add_trace(y = ~Kidney.prc, name = "Kidney", visible = F, text = sprintf("%.1f%%", Kidney.prc*100), 
+  add_trace(y = ~Kidney.prc, name = "Kidney", visible = F, text = sprintf("%.1f%%", Kidney.prc), 
             marker = list(color = col$darkyellow.kidney)) %>%
-  add_trace(y = ~Liver.prc, name = "Liver", visible = F, text= sprintf("%.1f%%", Liver.prc*100), 
+  add_trace(y = ~Liver.prc, name = "Liver", visible = F, text= sprintf("%.1f%%", Liver.prc), 
             marker = list(color = col$red.liver)) %>%
-  add_trace(y = ~Heart.prc, name = "Heart", visible = F, text= sprintf("%.1f%%", Heart.prc*100), 
+  add_trace(y = ~Heart.prc, name = "Heart", visible = F, text= sprintf("%.1f%%", Heart.prc), 
             marker = list(color = col$pink.heart)) %>%
-  add_trace(y = ~Pancreas.prc, name = "Pancreas", visible = F, text= sprintf("%.1f%%", Pancreas.prc*100), 
+  add_trace(y = ~Pancreas.prc, name = "Pancreas", visible = F, text= sprintf("%.1f%%", Pancreas.prc), 
             marker = list(color = col$green.pancreas)) %>%
-  add_trace(y = ~Lung.prc, name = "Lung", visible = F, text= sprintf("%.1f%%", Lung.prc*100), 
+  add_trace(y = ~Lung.prc, name = "Lung", visible = F, text= sprintf("%.1f%%", Lung.prc), 
             marker = list(color = col$lightblue.lungs)) %>%
-  add_trace(y = ~SmallBowel.prc, name = "SmallBowel", visible = F, text= sprintf("%.1f%%", SmallBowel.prc*100), 
+  add_trace(y = ~SmallBowel.prc, name = "SmallBowel", visible = F, text= sprintf("%.1f%%", SmallBowel.prc), 
             marker = list(color = col$beige.intestine))
 
-
 fig = fig %>% layout(
-  yaxis = list(title = ""), 
+  yaxis = list(title = "Anzahl oder Prozente"), 
   xaxis = list(title = ""), 
   barmode = "stack", legend = list(orientation = 'h'),
   title = "",
@@ -99,7 +99,7 @@ fig = fig %>% layout(
         list(method = "restyle",
              args = list("visible", list(T, T, T, T, T, T,
                                          F, F, F, F, F, F)),
-             label = "Absolut"),
+             label = "Anzahl"),
         
         list(method = "restyle",
              args = list("visible", list(F, F, F, F, F, F,

@@ -1,12 +1,14 @@
 name: "plots"
-title: "Stats"
+title: "Plots"
 description: |
   Plots
 output_dir: "docs"
 navbar:
   right:
-    - text: "Home"
-      href: index.html
+    - text: "Swisstransplant"
+      href: http://www.swisstransplant.org
     - text: "About"
       href: about.html
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    toc: true
