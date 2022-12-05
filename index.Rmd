@@ -1,19 +1,20 @@
 ---
-title: "Statistics on organ donation, transplantation and waiting list"
-author:
-- name: Simon Schwab
-  email: simon.schwab@swisstransplant.org
-date: 'Last updated: `r format(Sys.Date())`'
-output:
-  html_document:
-    code_folding: hide
-    df_print: paged
-    toc: yes
-    toc_depth: 3
-    toc_float: yes
-    css: "swt.css"
-subtitle: Swisstransplant
+title: "Organ donation, transplantation and waiting list"
+description: |
+  Swisstransplant yearly statistics with interactive plots.
+  
+  
+site: distill::distill_website
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
 
 ```{r message=FALSE, warning=FALSE, echo=F}
 library(plotly)
@@ -109,5 +110,3 @@ fig = fig %>% layout(
 
 fig
 ```
-
-

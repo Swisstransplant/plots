@@ -1,0 +1,13 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "Organ donation, transplantation and waiting list",
+      "description": "Swisstransplant yearly statistics with interactive plots.\n",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\nIntroduction\r\nDescribe here what this page shows. Describe data sources and how data is aggregated or any relevant detail about the data that needs reporting.\r\n1. Persons on the wating list\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-12-05T09:41:58+01:00"
+    }
+  ],
+  "collections": []
+}
