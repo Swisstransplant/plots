@@ -12,3 +12,5 @@ navbar:
 output: 
   distill::distill_article:
     toc: true
+header-includes:
+  \renewcommand{\contentsname}{Inhalt}

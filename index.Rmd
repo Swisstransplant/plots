@@ -23,8 +23,9 @@ col = swt::swt_colors()
 
 # Einleitung
 
-Ein paar Erklärungen, Was diese Seite zeigt. Beschreibung der Datenquellen und wie die Daten bearbeitet wurden. Vielleicht
-einige Hinweise, wie die Plots zu navigieren sind, z.B. Doppelklick ist ein "Reset" des Plots.
+Ein paar Erklärungen, was diese Seite zeigt. Beschreibung der Datenquellen und wie 
+die Daten bearbeitet wurden. Vielleicht einige Hinweise, wie die Plots zu navigieren
+sind, z.B. Doppelklick ist ein "Reset" des Plots.
 
 # 1. Personen auf der Warteliste
 
@@ -48,6 +49,31 @@ Pancreas.prc = Pancreas/N*100
 Lung.prc = Lung/N*100
 SmallBowel.prc = SmallBowel/N*100
 
+
+# updatemenus
+updatemenus = list(
+  list(
+    active = -1,
+    y = 1.3, x = 0.1,
+    type= 'buttons',
+    buttons = list(
+      
+      list(
+        label = "Anzahl",
+        method = "update",
+        args = list(list(visible = c(T, T, T, T, T, T, F, F, F, F, F, F)),
+                    list(#title = "Title 1",
+                    yaxis=list(title="Anzahl")))),
+      list(
+        label = "Prozent",
+        method = "update",
+        args = list(list(visible = c(F, F, F, F, F, F, T, T, T, T, T, T)),
+                    list(#title = "Title 2",
+                    yaxis=list(title="Prozent"))))
+      
+    )
+  )
+)
 
 # figs 1-6: Absolute numbers
 fig = plot_ly(data, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney, name = 'Kidney', 
@@ -81,31 +107,17 @@ fig = plot_ly(data, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney, name 
             marker = list(color = col$green.pancreas)) %>%
   add_trace(y = ~Lung.prc, name = "Lung", visible = F, text= sprintf("%.1f%%", Lung.prc), 
             marker = list(color = col$lightblue.lungs)) %>%
-  add_trace(y = ~SmallBowel.prc, name = "SmallBowel", visible = F, text= sprintf("%.1f%%", SmallBowel.prc), 
+  add_trace(y = ~SmallBowel.prc, name = "Small Bowel", visible = F, text= sprintf("%.1f%%", SmallBowel.prc), 
             marker = list(color = col$beige.intestine))
 
 fig = fig %>% layout(
-  yaxis = list(title = "Anzahl oder Prozente"), 
   xaxis = list(title = ""), 
+  yaxis = list(title = "Anzahl"), 
   barmode = "stack", legend = list(orientation = 'h'),
   title = "",
   xaxis = list(domain = c(0.1, 1)),
   uniformtext=list(minsize=9, mode='show'),
-  updatemenus = list(
-    
-    list(
-      y = 1.2, x = 0.1,
-      buttons = list(
-        list(method = "restyle",
-             args = list("visible", list(T, T, T, T, T, T,
-                                         F, F, F, F, F, F)),
-             label = "Anzahl"),
-        
-        list(method = "restyle",
-             args = list("visible", list(F, F, F, F, F, F,
-                                         T, T, T, T, T, T)),
-             label = "Prozent")))
-  )
+  updatemenus = updatemenus
 )
 
 fig
