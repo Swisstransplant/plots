@@ -76,8 +76,8 @@ updatemenus = list(
 )
 
 # figs 1-6: Absolute numbers
-fig = plot_ly(data, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney, name = 'Kidney', 
-              marker = list(color = col$darkyellow.kidney), insidetextanchor = 'middle',
+fig = plot_ly(data, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney,
+              name = 'Kidney', marker = list(color = col$darkyellow.kidney), insidetextanchor = 'middle',
               hovertemplate = paste('Year %{x}', '<br>%{y}<br>')) %>% 
   config(displayModeBar = FALSE) %>% 
   
@@ -111,11 +111,11 @@ fig = plot_ly(data, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney, name 
             marker = list(color = col$beige.intestine))
 
 fig = fig %>% layout(
-  xaxis = list(title = ""), 
-  yaxis = list(title = "Anzahl"), 
+  xaxis = list(title = "", fixedrange = TRUE), 
+  #xaxis = list(domain = c(0.1, 1)),
+  yaxis = list(title = "Anzahl", fixedrange = TRUE), 
   barmode = "stack", legend = list(orientation = 'h'),
   title = "",
-  xaxis = list(domain = c(0.1, 1)),
   uniformtext=list(minsize=9, mode='show'),
   updatemenus = updatemenus
 )
