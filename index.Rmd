@@ -63,13 +63,16 @@ updatemenus = list(
         method = "update",
         args = list(list(visible = c(T, T, T, T, T, T, F, F, F, F, F, F)),
                     list(#title = "Title 1",
-                    yaxis=list(title="Anzahl")))),
+                      xaxis=list(fixedrange = TRUE),
+                      yaxis=list(title="Anzahl", fixedrange = TRUE)))),
       list(
         label = "Prozent",
         method = "update",
         args = list(list(visible = c(F, F, F, F, F, F, T, T, T, T, T, T)),
                     list(#title = "Title 2",
-                    yaxis=list(title="Prozent"))))
+                      xaxis=list(fixedrange = TRUE),
+                      yaxis=list(title="Prozent", fixedrange = TRUE)
+                    )))
       
     )
   )

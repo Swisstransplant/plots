@@ -1,20 +1,12 @@
 {
   "articles": [
     {
-      "path": "about.html",
-      "title": "About this site",
-      "description": "Some additional details about the website",
-      "author": [],
-      "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-12-05T10:17:33+01:00"
-    },
-    {
       "path": "index.html",
       "title": "Organspende, Transplantationen und Warteliste",
       "description": "Jahresstatistik mit interaktiven Plots.\n",
       "author": [],
       "contents": "\r\n\r\nContents\r\nEinleitung\r\n1. Personen auf der Warteliste\r\n\r\n\r\n\r\n\r\nEinleitung\r\nEin paar Erklärungen, was diese Seite zeigt. Beschreibung der Datenquellen und wie\r\ndie Daten bearbeitet wurden. Vielleicht einige Hinweise, wie die Plots zu navigieren\r\nsind, z.B. Doppelklick ist ein “Reset” des Plots.\r\n1. Personen auf der Warteliste\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-12-07T12:38:50+01:00"
+      "last_modified": "2022-12-07T13:18:40+01:00"
     }
   ],
   "collections": []

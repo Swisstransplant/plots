@@ -1,16 +1,18 @@
 name: "plots"
-title: "Plots"
+title: "Interactive Plots"
 description: |
-  Plots
+  Interactive plots
 output_dir: "docs"
 navbar:
+  logo:
+    image: swt.png
+    href: https://www.swisstransplant.org
   right:
-    - text: "Swisstransplant"
-      href: http://www.swisstransplant.org
-    - text: "About"
-      href: about.html
+    - icon: fab fa-github
+      href: https://github.com/Swisstransplant/plots
 output: 
   distill::distill_article:
     toc: true
+    css: swt.css
 header-includes:
   \renewcommand{\contentsname}{Inhalt}
