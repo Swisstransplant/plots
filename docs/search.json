@@ -2,11 +2,11 @@
   "articles": [
     {
       "path": "index.html",
-      "title": "Organspende, Transplantationen und Warteliste",
-      "description": "Jahresstatistik mit interaktiven Plots.\n",
+      "title": "Organ donation, transplantation and waiting list",
+      "description": "Swisstransplant interactive plots. This website is work in progress and contains inofficial data and figures still under development. These data is unconfirmed an must not be used by third parties. For offical statistics and numbers please visit our website https://www.swisstransplant.org/.\n",
       "author": [],
-      "contents": "\r\n\r\nContents\r\nEinleitung\r\n1. Personen auf der Warteliste\r\n\r\n\r\n\r\n\r\nEinleitung\r\nEin paar Erklärungen, was diese Seite zeigt. Beschreibung der Datenquellen und wie\r\ndie Daten bearbeitet wurden. Vielleicht einige Hinweise, wie die Plots zu navigieren\r\nsind, z.B. Doppelklick ist ein “Reset” des Plots.\r\n1. Personen auf der Warteliste\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-12-07T13:18:40+01:00"
+      "contents": "\r\n\r\nContents\r\nIntroduction\r\n1. Persons on the waiting list\r\n\r\n\r\n\r\n\r\nIntroduction\r\nWhat are the data sources? How were data processed?\r\nPlease click on the figure legend to select or unselect categories. Double-click\r\nselects exclusively a specific category.\r\n1. Persons on the waiting list\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-12-12T13:38:20+01:00"
     }
   ],
   "collections": []
