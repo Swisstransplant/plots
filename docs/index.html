@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Interactive plots</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.10.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="index.html" class="navbar-brand navbar-brand-logo">
+    <img src="swt.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="index.html" aria-current="page">
+ <span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://www.swisstransplant.org/">
+ <span class="menu-text">Swisstransplant</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Swisstransplant/plots"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#number-of-persons-on-the-waiting-list" id="toc-number-of-persons-on-the-waiting-list" class="nav-link active" data-scroll-target="#number-of-persons-on-the-waiting-list">1. Number of persons on the waiting list</a></li>
+  <li><a href="#living-and-deceased-donors" id="toc-living-and-deceased-donors" class="nav-link" data-scroll-target="#living-and-deceased-donors">2. Living and deceased donors</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Interactive plots</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<p>This website contains unofficial data and figures that are under development. These data are unconfirmed an must not be used by any third parties. For official statistics and numbers please visit our website <a href="https://www.swisstransplant.org/">https://www.swisstransplant.org/</a>.</p>
+<p>The aim of this page is to visualize some of the organ donation and transplantation activity as interactive plots. You can click on the legend items to enable or disable categories, for example the organs. A double-click selects a single category.</p>
+<section id="number-of-persons-on-the-waiting-list" class="level2">
+<h2 class="anchored" data-anchor-id="number-of-persons-on-the-waiting-list">1. Number of persons on the waiting list</h2>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-7f3c45b1e133dd1b1ead" style="width:100%;height:464px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7f3c45b1e133dd1b1ead">{"x":{"visdat":{"3f346d3d3bce":["function () ","plotlyVisDat"]},"cur_data":"3f346d3d3bce","attrs":{"3f346d3d3bce":{"x":{},"y":{},"text":{},"marker":{"color":"#F2AF5C"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Kidney","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"},"3f346d3d3bce.1":{"x":{},"y":{},"text":{},"marker":{"color":"#D98F8F"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Liver","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":true,"inherit":true},"3f346d3d3bce.2":{"x":{},"y":{},"text":{},"marker":{"color":"#D4005466"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Heart","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":true,"inherit":true},"3f346d3d3bce.3":{"x":{},"y":{},"text":{},"marker":{"color":"#8BAD8F"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Pancreas","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":true,"inherit":true},"3f346d3d3bce.4":{"x":{},"y":{},"text":{},"marker":{"color":"#9BBDC5"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Lung","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":true,"inherit":true},"3f346d3d3bce.5":{"x":{},"y":{},"text":{},"marker":{"color":"#D1CDBD"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Small Bowel","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":true,"inherit":true},"3f346d3d3bce.6":{"x":{},"y":{},"text":["75%","72%","73%","71%"],"marker":{"color":"#F2AF5C"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Kidney","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":false,"inherit":true},"3f346d3d3bce.7":{"x":{},"y":{},"text":["13%","14%","15%","16%"],"marker":{"color":"#D98F8F"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Liver","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":false,"inherit":true},"3f346d3d3bce.8":{"x":{},"y":{},"text":["5.2%","6.1%","5.2%","5.1%"],"marker":{"color":"#D4005466"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Heart","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":false,"inherit":true},"3f346d3d3bce.9":{"x":{},"y":{},"text":["4.1%","3.9%","3.0%","3.1%"],"marker":{"color":"#8BAD8F"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Pancreas","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":false,"inherit":true},"3f346d3d3bce.10":{"x":{},"y":{},"text":["2.5%","3.1%","3.5%","4.8%"],"marker":{"color":"#9BBDC5"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Lung","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":false,"inherit":true},"3f346d3d3bce.11":{"x":{},"y":{},"text":["0.069%","0.140%","0.130%","0.068%"],"marker":{"color":"#D1CDBD"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Small Bowel","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":false,"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"","fixedrange":true,"ticktext":["2018","2019","2020","2021"],"tickvals":[2018,2019,2020,2021]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Persons","fixedrange":true},"barmode":"stack","legend":{"orientation":"h","xanchor":"center","x":0.5,"y":1.25},"title":"","uniformtext":{"minsize":9,"mode":"show"},"updatemenus":[{"active":-1,"y":1.25,"x":0.1,"type":"buttons","buttons":[{"label":"Persons","method":"update","args":[{"visible":[true,true,true,true,true,true,false,false,false,false,false,false]},{"yaxis":{"title":"Persons","fixedrange":true}}]},{"label":"Percent","method":"update","args":[{"visible":[false,false,false,false,false,false,true,true,true,true,true,true]},{"yaxis":{"title":"Persons","fixedrange":true}}]}]}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[2018,2019,2020,2021],"y":[1090,1057,1094,1046],"text":[1090,1057,1094,1046],"marker":{"color":"#F2AF5C","line":{"color":"rgba(31,119,180,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Kidney","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[192,209,222,233],"text":[192,209,222,233],"marker":{"color":"#D98F8F","line":{"color":"rgba(255,127,14,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Liver","type":"bar","visible":true,"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[76,89,77,75],"text":[76,89,77,75],"marker":{"color":"#D4005466","line":{"color":"rgba(44,160,44,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Heart","type":"bar","visible":true,"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[60,57,44,45],"text":[60,57,44,45],"marker":{"color":"#8BAD8F","line":{"color":"rgba(214,39,40,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Pancreas","type":"bar","visible":true,"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[37,45,52,70],"text":[37,45,52,70],"marker":{"color":"#9BBDC5","line":{"color":"rgba(148,103,189,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Lung","type":"bar","visible":true,"error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[1,2,2,1],"text":[1,2,2,1],"marker":{"color":"#D1CDBD","line":{"color":"rgba(140,86,75,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Small Bowel","type":"bar","visible":true,"error_y":{"color":"rgba(140,86,75,1)"},"error_x":{"color":"rgba(140,86,75,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[1090,1057,1094,1046],"text":["75%","72%","73%","71%"],"marker":{"color":"#F2AF5C","line":{"color":"rgba(227,119,194,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Kidney","type":"bar","visible":false,"error_y":{"color":"rgba(227,119,194,1)"},"error_x":{"color":"rgba(227,119,194,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[192,209,222,233],"text":["13%","14%","15%","16%"],"marker":{"color":"#D98F8F","line":{"color":"rgba(127,127,127,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Liver","type":"bar","visible":false,"error_y":{"color":"rgba(127,127,127,1)"},"error_x":{"color":"rgba(127,127,127,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[76,89,77,75],"text":["5.2%","6.1%","5.2%","5.1%"],"marker":{"color":"#D4005466","line":{"color":"rgba(188,189,34,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Heart","type":"bar","visible":false,"error_y":{"color":"rgba(188,189,34,1)"},"error_x":{"color":"rgba(188,189,34,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[60,57,44,45],"text":["4.1%","3.9%","3.0%","3.1%"],"marker":{"color":"#8BAD8F","line":{"color":"rgba(23,190,207,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Pancreas","type":"bar","visible":false,"error_y":{"color":"rgba(23,190,207,1)"},"error_x":{"color":"rgba(23,190,207,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[37,45,52,70],"text":["2.5%","3.1%","3.5%","4.8%"],"marker":{"color":"#9BBDC5","line":{"color":"rgba(31,119,180,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Lung","type":"bar","visible":false,"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[1,2,2,1],"text":["0.069%","0.140%","0.130%","0.068%"],"marker":{"color":"#D1CDBD","line":{"color":"rgba(255,127,14,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Small Bowel","type":"bar","visible":false,"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="living-and-deceased-donors" class="level2">
+<h2 class="anchored" data-anchor-id="living-and-deceased-donors">2. Living and deceased donors</h2>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="htmlwidget-44980054fb3890d8a133" style="width:100%;height:464px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-44980054fb3890d8a133">{"x":{"visdat":{"3f342d655d34":["function () ","plotlyVisDat"]},"cur_data":"3f342d655d34","attrs":{"3f342d655d34":{"x":{},"y":{},"text":{},"marker":{"color":"#FBE446"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Deceased donors (DBD)","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar"},"3f342d655d34.1":{"x":{},"y":{},"text":{},"marker":{"color":"#FDF1A2"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Deceased donors (DCD)","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":true,"inherit":true},"3f342d655d34.2":{"x":{},"y":{},"text":{},"marker":{"color":"#D4005466"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Living donors","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":true,"inherit":true},"3f342d655d34.3":{"x":{},"y":{},"text":["37.5%","37.5%","41.9%","37.5%"],"marker":{"color":"#FBE446"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Deceased donors (DBD)","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":false,"inherit":true},"3f342d655d34.4":{"x":{},"y":{},"text":["21.3%","21.3%","21.8%","19.6%"],"marker":{"color":"#FDF1A2"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Deceased donors (DCD)","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":false,"inherit":true},"3f342d655d34.5":{"x":{},"y":{},"text":["41.2%","41.2%","36.2%","43.0%"],"marker":{"color":"#D4005466"},"insidetextanchor":"middle","hovertemplate":"Year %{x} <br>%{y}<br>","name":"Living donors","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"bar","visible":false,"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"","fixedrange":true,"ticktext":["2018","2019","2020","2021"],"tickvals":[2018,2019,2020,2021]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Persons","fixedrange":true},"barmode":"stack","legend":{"orientation":"h","xanchor":"center","x":0.5,"y":1.25},"title":"","uniformtext":{"minsize":9,"mode":"show"},"updatemenus":[{"active":-1,"y":1.25,"x":0.1,"type":"buttons","buttons":[{"label":"Persons","method":"update","args":[{"visible":[true,true,true,false,false,false]},{"yaxis":{"title":"Persons","fixedrange":true}}]},{"label":"Percent","method":"update","args":[{"visible":[false,false,false,true,true,true]},{"yaxis":{"title":"Persons","fixedrange":true}}]}]}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"displayModeBar":false},"data":[{"x":[2018,2019,2020,2021],"y":[100,100,96,109],"text":[100,100,96,109],"marker":{"color":"#FBE446","line":{"color":"rgba(31,119,180,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Deceased donors (DBD)","type":"bar","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[57,57,50,57],"text":[57,57,50,57],"marker":{"color":"#FDF1A2","line":{"color":"rgba(255,127,14,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Deceased donors (DCD)","type":"bar","visible":true,"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[110,110,83,125],"text":[110,110,83,125],"marker":{"color":"#D4005466","line":{"color":"rgba(44,160,44,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Living donors","type":"bar","visible":true,"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[100,100,96,109],"text":["37.5%","37.5%","41.9%","37.5%"],"marker":{"color":"#FBE446","line":{"color":"rgba(214,39,40,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Deceased donors (DBD)","type":"bar","visible":false,"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[57,57,50,57],"text":["21.3%","21.3%","21.8%","19.6%"],"marker":{"color":"#FDF1A2","line":{"color":"rgba(148,103,189,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Deceased donors (DCD)","type":"bar","visible":false,"error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[2018,2019,2020,2021],"y":[110,110,83,125],"text":["41.2%","41.2%","36.2%","43.0%"],"marker":{"color":"#D4005466","line":{"color":"rgba(140,86,75,1)"}},"insidetextanchor":"middle","hovertemplate":["Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>","Year %{x} <br>%{y}<br>"],"name":"Living donors","type":"bar","visible":false,"error_y":{"color":"rgba(140,86,75,1)"},"error_x":{"color":"rgba(140,86,75,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2023—Swisstransplant</div>   
+  </div>
+</footer>
+
+
+
+</body></html>

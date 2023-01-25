@@ -1,0 +1,31 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: ""
+  search: false
+  navbar:
+    background: "#003764"
+    logo: "swt.png"
+    left:
+      - href: index.qmd
+        text: Home
+    right:
+      - href: "https://www.swisstransplant.org/"
+        text: Swisstransplant
+      - icon: github
+        href: https://github.com/Swisstransplant/plots
+        
+  page-footer:
+    left: '© Copyright 2023&mdash;Swisstransplant'
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    mainfont: sans-serif
+
+editor: visual
+

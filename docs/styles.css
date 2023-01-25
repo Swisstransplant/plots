@@ -1,0 +1,15 @@
+/* css styles */
+
+h1, h2, h3 {
+    color: #003764;
+    font-weight: bold;
+}
+
+a {
+    color: #e5005c;
+}
+
+/* mouse over link */
+a:hover {
+  color: #EB3F84;
+}

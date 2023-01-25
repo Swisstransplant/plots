@@ -1,0 +1,300 @@
+---
+title: "Interactive plots"
+execute:
+  echo: false
+---
+
+```{r, message=FALSE}
+library(plotly)
+library(fs)
+
+col = swt::swt_colors()
+
+# Add this folder as shortcut in your OneDrive. In my case, I put it in a Data folder
+PATH_DATA = file.path(path_home(), "OneDrive - Swisstransplant", "Data", "Jahresbericht")
+```
+
+This website contains unofficial data and figures that are under development. These data are unconfirmed an must not be used by any third parties. For official statistics and numbers please visit our website [https://www.swisstransplant.org/](https://www.swisstransplant.org/).
+
+The aim of this page is to visualize some of the organ donation and transplantation activity as interactive plots. You can click on the legend items to enable or disable categories, for example the organs. A double-click selects a single category.
+
+## 1. Number of persons on the waiting list
+
+```{r}
+FILE_WL_2018 = file.path(PATH_DATA, "2019", "3_Warteliste", "WL_Status_31.12.2018.csv")
+FILE_WL_2019 = file.path(PATH_DATA, "2019", "3_Warteliste", "WL_Status_31.12.2019.csv")
+FILE_WL_2020 = file.path(PATH_DATA, "2020", "3_Warteliste", "WL_Status_31.12.2020.csv")
+FILE_WL_2021 = file.path(PATH_DATA, "2021", "3_Warteliste", "WL_Status_31.12.2021.csv")
+
+data.wl.2018 = read.csv2(FILE_WL_2018, header = TRUE)
+data.wl.2019 = read.csv2(FILE_WL_2019, header = TRUE)
+data.wl.2020 = read.csv2(FILE_WL_2020, header = TRUE)
+data.wl.2021 = read.csv2(FILE_WL_2021, header = TRUE)
+
+data.wl = data.frame(Year = 2018:2021,
+                     Kidney = c(sum(data.wl.2018$kidney == "WAHR"),
+                                sum(data.wl.2019$kidney == "WAHR"),
+                                sum(data.wl.2020$kidney == "WAHR"),
+                                sum(data.wl.2021$R.on.Ki.List == "WAHR")
+                     ),
+                     Liver =  c(sum(data.wl.2018$liver == "WAHR"),
+                                sum(data.wl.2019$liver == "WAHR"),
+                                sum(data.wl.2020$liver == "WAHR"),
+                                sum(data.wl.2021$R.on.Li.List == "WAHR")
+                     ),
+                     Heart =  c(sum(data.wl.2018$heart == "WAHR"),
+                                sum(data.wl.2019$heart == "WAHR"),
+                                sum(data.wl.2020$heart == "WAHR"),
+                                sum(data.wl.2021$R.on.He.List == "WAHR")
+                     ),
+                     Pancreas =  c(sum(data.wl.2018$pancreas == "WAHR"),
+                                   sum(data.wl.2019$pancreas == "WAHR"),
+                                   sum(data.wl.2020$pancreas == "WAHR"),
+                                   sum(data.wl.2021$R.on.PI.List == "WAHR")
+                     ),
+                     Lung =  c(sum(data.wl.2018$lung == "WAHR"),
+                               sum(data.wl.2019$lung == "WAHR"),
+                               sum(data.wl.2020$lung == "WAHR"),
+                               sum(data.wl.2021$R.on.Lu.List == "WAHR")
+                     ),
+                     SmallBowel =  c(sum(data.wl.2018$smallbowel == "WAHR"),
+                                     sum(data.wl.2019$smallbowel == "WAHR"),
+                                     sum(data.wl.2020$smallbowel == "WAHR"),
+                                     sum(data.wl.2021$R.on.SB.List == "WAHR")
+                     )
+)
+
+# data frame with percentages
+N = rowSums(data.wl[,2:7])
+data.wl.prc = data.wl
+data.wl.prc[,2:7] = data.wl[,2:7]/N * 100
+```
+
+```{r, echo=F}
+# adds two buttons to change labels from absolute to percent
+updatemenus = list(
+  list(
+    active = -1,
+    y = 1.25, x = 0.1,
+    type= 'buttons',
+    buttons = list(
+      
+      list(
+        label = "Persons",
+        method = "update",
+        args = list(list(visible = c(T, T, T, T, T, T, F, F, F, F, F, F)),
+                    list(#title = "Title 1",
+                      yaxis=list(title="Persons", fixedrange = TRUE)))),
+      list(
+        label = "Percent",
+        method = "update",
+        args = list(list(visible = c(F, F, F, F, F, F, T, T, T, T, T, T)),
+                    list(#title = "Title 2",
+                      yaxis=list(title="Persons", fixedrange = TRUE)
+                    )))
+      
+    )
+  )
+)
+
+# figs 1-6: Absolute numbers
+fig = plot_ly(data.wl, x = ~Year, y = ~Kidney,  type = 'bar', text = ~Kidney,
+              name = 'Kidney', marker = list(color = col$darkyellow.kidney), 
+              insidetextanchor = 'middle',
+              hovertemplate = paste('Year %{x}', '<br>%{y}<br>')) %>% 
+  
+  config(displayModeBar = FALSE) %>% # remove bar
+  
+  add_trace(data.wl, y = ~Liver, text = ~Liver, name = 'Liver', 
+            visible = T, marker = list(color = col$red.liver)) %>%
+  
+  add_trace(data.wl, y = ~Heart, text = ~Heart, name = 'Heart',
+            visible = T, marker = list(color = col$pink.heart)) %>%
+  
+  add_trace(data.wl, y = ~Pancreas, text = ~Pancreas, name = 'Pancreas',
+            visible = T, marker = list(color = col$green.pancreas)) %>%
+  
+  add_trace(data.wl, y = ~Lung, text = ~Lung, name = 'Lung',
+            visible = T, marker = list(color = col$lightblue.lungs)) %>%
+  
+  add_trace(data.wl, y = ~SmallBowel, text = ~SmallBowel, name = 'Small Bowel',
+            visible = T, marker = list(color = col$beige.intestine)) %>%
+  
+  # figs 7-12: Percent
+  add_trace(data.wl, y = ~Kidney, name = "Kidney", visible = F,
+            text = paste0(as.character.numeric_version(
+              signif(data.wl.prc$Kidney, digits = 2)), "%"), 
+            marker = list(color = col$darkyellow.kidney)) %>%
+  
+  add_trace(data.wl.prc, y = ~Liver, name = "Liver", visible = F,
+            text = paste0(as.character.numeric_version(
+              signif(data.wl.prc$Liver, digits = 2)), "%"), 
+            marker = list(color = col$red.liver)) %>%
+  
+  add_trace(data.wl.prc, y = ~Heart, name = "Heart", visible = F,
+            text = paste0(as.character.numeric_version(
+              signif(data.wl.prc$Heart, digits = 2)), "%"), 
+            marker = list(color = col$pink.heart)) %>%
+  
+  add_trace(data.wl.prc, y = ~Pancreas, name = "Pancreas", visible = F,
+            text = paste0(as.character.numeric_version(
+              signif(data.wl.prc$Pancreas, digits = 2)), "%"), 
+            marker = list(color = col$green.pancreas)) %>%
+  
+  add_trace(data.wl.prc, y = ~Lung, name = "Lung", visible = F,
+            text = paste0(as.character.numeric_version(
+              signif(data.wl.prc$Lung, digits = 2)), "%"), 
+            marker = list(color = col$lightblue.lungs)) %>%
+  
+  add_trace(data.wl.prc, y = ~SmallBowel, name = "Small Bowel", visible = F, 
+            text = paste0(as.character.numeric_version(
+              signif(data.wl.prc$SmallBowel, digits = 2)), "%"), 
+            marker = list(color = col$beige.intestine))
+
+fig = fig %>% layout(
+  xaxis = list(title = "", fixedrange = TRUE,
+               ticktext = list("2018", "2019", "2020", "2021"), 
+               tickvals = list(2018, 2019, 2020, 2021)),
+  yaxis = list(title = "Persons", fixedrange = TRUE), 
+  barmode = "stack", legend = list(orientation = 'h',
+                                   xanchor = "center",  # use center of legend as anchor
+                                   x = 0.5, y = 1.25),  # put legend in center of x-axis
+  title = "",
+  uniformtext=list(minsize=9, mode='show'),
+  updatemenus = updatemenus
+)
+
+fig
+```
+
+## 2. Living and deceased donors
+
+```{r}
+FILE_DONORS_2018 = file.path(PATH_DATA, "2020", "1_Organspende", "BQD_2018.csv")
+FILE_DONORS_2019 = file.path(PATH_DATA, "2020", "1_Organspende", "BQD_2019.csv")
+FILE_DONORS_2020 = file.path(PATH_DATA, "2020", "1_Organspende", "BQD_2020.csv")
+FILE_DONORS_2021 = file.path(PATH_DATA, "2021", "1_Organspende", "DonorBaseQuery_2021.csv")
+
+data.donors.2018 = read.csv2(FILE_DONORS_2018, header = TRUE)
+data.donors.2019 = read.csv2(FILE_DONORS_2019, header = TRUE)
+data.donors.2020 = read.csv2(FILE_DONORS_2020, header = TRUE)
+data.donors.2021 = read.csv2(FILE_DONORS_2021, header = TRUE)
+
+myVars = c("D.Code", "D.Type", "D.Status", "D.Pathway")
+
+data.donors.2018 = subset(data.donors.2018, select = c("donor_code", "donor_type",
+                                                       "status", "cadaveric_donor_type"))
+data.donors.2019 = subset(data.donors.2019, select = c("donor_code", "donor_type",
+                                                       "status", "cadaveric_donor_type"))
+data.donors.2020 = subset(data.donors.2020, select = c("donor_code", "donor_type",
+                                                       "status", "cadaveric_donor_type"))
+
+colnames(data.donors.2018) = myVars  # update old variable names 
+colnames(data.donors.2019) = myVars
+colnames(data.donors.2020) = myVars
+
+data.donors.2018 = subset(data.donors.2018, select = myVars)
+data.donors.2018 = subset(data.donors.2019, select = myVars)
+data.donors.2020 = subset(data.donors.2020, select = myVars)
+data.donors.2021 = subset(data.donors.2021, select = myVars)
+
+data.donors.2018$Year = "2018"
+data.donors.2019$Year = "2019"
+data.donors.2020$Year = "2020"
+data.donors.2021$Year = "2021"
+
+data.donors = rbind(data.donors.2018, data.donors.2019,
+                    data.donors.2020, data.donors.2021)
+
+# new group variable living vs deceased donor
+data.donors$Group = NA
+# we do not select FO
+data.donors$Group[data.donors$D.Type == "ST" &
+                    data.donors$D.Pathway == "DBD"] = "deceased.donors.DBD" 
+data.donors$Group[data.donors$D.Type == "ST" &
+                    data.donors$D.Pathway == "DCD"] = "deceased.donors.DCD" 
+data.donors$Group[grepl("^LA$|^LD$|^LK$|^LR$", data.donors$D.Type)] = "living.donors"
+
+data.donors = subset(data.donors, 
+                     subset = D.Status=="UTI" | D.Status=="EFF")
+
+data.donors = as.data.frame.matrix(table(data.donors$Year, data.donors$Group), row.names = FALSE)
+data.donors$Year = 2018:2021
+
+
+N = rowSums(data.donors[,1:3])
+data.donors.prc = data.donors
+data.donors.prc[,1:3] = data.donors[,1:3]/N * 100
+```
+
+```{r}
+# updatemenus
+updatemenus = list(
+  list(
+    active = -1,
+    y = 1.25, x = 0.1,
+    type= 'buttons',
+    buttons = list(
+      
+      list(
+        label = "Persons",
+        method = "update",
+        args = list(list(visible = c(T, T, T, F, F, F)),
+                    list(#title = "Title 1",
+                      yaxis=list(title="Persons", fixedrange = TRUE)))),
+      list(
+        label = "Percent",
+        method = "update",
+        args = list(list(visible = c(F, F, F, T, T, T)),
+                    list(#title = "Title 2",
+                      yaxis=list(title="Persons", fixedrange = TRUE)
+                    )))
+      
+    )
+  )
+)
+
+# figs 1-2: Absolute numbers
+fig = plot_ly(data.donors, x = ~Year, y = ~deceased.donors.DBD,  type = 'bar', 
+              text = ~deceased.donors.DBD, name = 'Deceased donors (DBD)', 
+              marker = list(color = col$pal.yellow.donation[1]), insidetextanchor = 'middle',
+              hovertemplate = paste('Year %{x}', '<br>%{y}<br>')) %>% 
+  
+  config(displayModeBar = FALSE) %>% 
+  
+  add_trace(data.donors, y = ~deceased.donors.DCD, text = ~deceased.donors.DCD, 
+            name = 'Deceased donors (DCD)', visible = T,
+            marker = list(color = col$pal.yellow.donation[3])) %>%
+  
+  add_trace(data.donors, y = ~living.donors, text = ~living.donors,
+            name = 'Living donors', visible = T,
+            marker = list(color = col$pink.heart)) %>%
+  
+  # figs 3-4: Percent
+  add_trace(data.donors.prc, y = ~deceased.donors.DBD, name = "Deceased donors (DBD)", 
+            visible = F, text = sprintf("%.1f%%", data.donors.prc$deceased.donors.DBD), 
+            marker = list(color = col$pal.yellow.donation[1])) %>%
+  
+  add_trace(data.donors.prc, y = ~deceased.donors.DCD, name = "Deceased donors (DCD)",
+            visible = F, text= sprintf("%.1f%%", data.donors.prc$deceased.donors.DCD ), 
+            marker = list(color = col$pal.yellow.donation[3])) %>%
+  
+  add_trace(data.donors.prc, y = ~living.donors, name = "Living donors",
+            visible = F, text= sprintf("%.1f%%", data.donors.prc$living.donors ), 
+            marker = list(color = col$pink.heart))
+
+fig = fig %>% layout(
+  xaxis = list(title = "", fixedrange = TRUE, 
+               ticktext = list("2018", "2019", "2020", "2021"), 
+               tickvals = list(2018, 2019, 2020, 2021)),
+  yaxis = list(title = "Persons", fixedrange = TRUE), 
+  barmode = "stack", legend = list(orientation = 'h',
+                                   xanchor = "center",  # use center of legend as anchor
+                                   x = 0.5, y = 1.25),  # put legend in center of x-axis
+  title = "",
+  uniformtext=list(minsize=9, mode='show'),
+  updatemenus = updatemenus
+)
+
+fig
+```
